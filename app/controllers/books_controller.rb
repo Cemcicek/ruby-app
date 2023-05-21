@@ -12,8 +12,15 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.create(book_params)
-    redirect_to books_path
+    @book = Book.create(book_params)
+    @book.image.attach(params[:book][:image])
+    
+    if @book.save
+      redirect_to books_path
+    else
+      render :new
+    end
+
   end
 
   def edit
@@ -35,7 +42,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:name, :description, :writer, :page)
+    params.require(:book).permit(:name, :description, :writer, :page, :image)
   end
 
 end

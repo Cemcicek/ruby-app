@@ -1,9 +1,13 @@
 <div class="row mt-50">
     <% @books.each do |bk| %>
-        <div class="col-md-4 mt-50">
+        <div class="col-md-4 mt-50 mb-50">
             <div class="card-group">
                 <div class="card">
-                    <%= image_tag "book.jpg", class: "card-img-top", alt: "..." %>
+                <% if bk.image.attached? %>
+                    <%= image_tag bk.image, class: "card-img-top", alt: "Book Image" %>
+                <% else %>
+                    <p>No image available</p>
+                <% end %>
                     <div class="card-body">
                         <h5 class="card-title"><%= link_to bk.name, book_path(bk) %> </h5>
                         <p class="card-text"><%= bk.description %></p>
